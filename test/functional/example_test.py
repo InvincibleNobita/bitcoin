@@ -202,7 +202,10 @@ class ExampleTest(BitcoinTestFramework):
         peer_receiving = self.nodes[2].add_p2p_connection(BaseNode())
 
         self.log.info("Test that node2 propagates all the blocks to us")
-
+        
+        #To check whether node 2 received it or not
+        assert_equal(self.nodes[1].getbestblockhash(), self.nodes[2].getbestblockhash())
+        
         getdata_request = msg_getdata()
         for block in blocks:
             getdata_request.inv.append(CInv(MSG_BLOCK, block))
